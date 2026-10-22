@@ -28,7 +28,7 @@
 |---|---|---|---|
 | **T1.1** | Set up the project skeleton | — | Starts locally with one documented command; test runner runs an empty suite; README lists the command. *(Stack is ADR-006 — confirm before starting.)* |
 | **T1.2** | Define `AgentEntry` and `AgentStatus` | T1.1 | Types match [Architecture](Architecture.md) §4.1. Status states are exactly: sample, not_connected, connecting, connected, error. |
-| **T1.3** | Write the three entries in the in-code catalog source | T1.2 | Entries `coding-agent`, `document-summarizer`, `data-assistant` with name, summary, description. Coding Agent `kind = local`; others `kind = sample`. Sample copy follows Design §7 (future tense). |
+| **T1.3** | Write the three entries in the in-code catalog source | T1.2 | Entries `coding-agent`, `jira-task-advisor`, `task-intermediary` with name, summary, description. Coding Agent `kind = local`; others `kind = sample`. Sample copy follows Design §7 (future tense). |
 | **T1.4** | Implement `AgentCatalog` over the in-code source | T1.3 | `list()` returns the three entries in display order; `get(id)` returns the entry or NotFound. Passes catalog contract suite (TC-C.1–C.4). |
 | **T1.5** | Implement the static adapters | T1.2 | Sample adapter: status `sample`, `send` returns "not available". Coding Agent adapter (M1 version): status `not_connected`, makes no contact with the agent. Passes adapter contract suite (TC-A.1–A.3). |
 | **T1.6** | Build the status badge | T1.2 | Renders label + marker + colour per Design §3 for all five states; not focusable; AA contrast. |
@@ -65,11 +65,16 @@ Listed so nothing in M1–M2 blocks them. Each gets its own tasks when its lesso
 |---|---|---|
 | Choose storage for the catalog | Lesson on data | New `AgentCatalog` implementation passing the contract suite (ADR-003) |
 | Choose data-access approach | Lesson on data | Lives inside the catalog source (ADR-004) |
-| Real Document Summarizer | Later lesson | New adapter; entry `kind` changes to `local` (or new kind) |
-| Real Data Assistant | Later lesson | Same pattern |
+| Real Jira Task Advisor | Later lesson | New adapter; entry `kind` changes to `local` (or new kind) |
+| Real Task Intermediary | Later lesson | Same pattern |
 | Search and filter | When catalog grows | UI above grid; may extend `AgentCatalog` |
 | Add / register an agent | Later lesson | New authoring flow; depends on storage |
 | Identity / per-user state | Not yet agreed | New interface |
+| Jira task advisor (example agent) | Later lesson | New adapter and an outside-system connection to Jira; shows recommendations and test cases |
+| Task intermediary: WhatsApp → documented, assigned tasks (example agent) | Later lesson | New adapter with read (WhatsApp) and write (assignment platform) connections; needs permissions, confirmation, activity record and a privacy decision first |
+| Outside-system connections, credentials | Later lesson | ADR-007; builds on storage and identity |
+| Permissions and confirmation | Later lesson | ADR-008; extends `AgentEntry` and the detail view |
+| Activity record | After identity and storage | New component beside the detail view |
 
 ## 6. Traceability
 

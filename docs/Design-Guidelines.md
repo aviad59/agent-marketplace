@@ -111,7 +111,7 @@ Rules:
 
 ## 7. Copy
 
-- Names exactly as defined: **Coding Agent**, **Document Summarizer**, **Data Assistant**.
+- Names exactly as defined: **Coding Agent**, **Jira Task Advisor**, **Task Intermediary**.
 - Say "agent", not "bot" or "AI".
 - Short, plain sentences. Second person ("You can…"). No exclamation marks.
 - Never describe a sample's capabilities as if they work today: "will summarise documents", not "summarises documents".
@@ -138,5 +138,17 @@ The UI language isn't agreed. If Hebrew is used (alone or with English):
 
 - Search and filter above the grid once the catalog grows.
 - Add / register an agent form for authors.
-- Real actions for Document Summarizer and Data Assistant, following §6's pattern.
+- Real actions for Jira Task Advisor and Task Intermediary, following §6's pattern.
 - Empty catalog state ("No agents yet") once entries come from storage.
+
+### Agents that use outside systems (e.g. Jira advisor, WhatsApp task intermediary)
+
+Not designed in detail. When they arrive, the detail view follows these rules, building on §3, §4 and §6:
+
+- A **Permissions** section states in plain words what the agent reads ("Reads tasks from Jira") and what it changes ("Assigns tasks on the team platform"), before any Connect action.
+- Connecting an outside system is a separate, visible step per system, showing connected / not connected for each.
+- Anything that changes something elsewhere says what will happen and asks for confirmation first (§4).
+- Results appear as a readable list (recommendations, test cases, documented tasks, assignments), each with where it came from.
+- An **Activity** section shows what the agent did, with a way to stop it.
+- Agents handling other people's messages say so plainly on the card and the detail view.
+- Descriptions follow §7: an agent that isn't built yet "will read tasks from Jira", never "reads".

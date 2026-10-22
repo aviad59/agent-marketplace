@@ -36,7 +36,7 @@ Browsers: the latest version of at least two major browsers, plus one narrow (�
 | TC-C.3 | `get(id)` for every listed id | Returns the same entry as `list()` |
 | TC-C.4 | `get("does-not-exist")` | NotFound (not an error/crash) |
 
-For the in-code source, also check: exactly the three entries, in the order Coding Agent, Document Summarizer, Data Assistant.
+For the in-code source, also check: exactly the three entries, in the order Coding Agent, Jira Task Advisor, Task Intermediary.
 
 ### 3.2 Adapter (`AgentAdapter`)
 
@@ -50,12 +50,12 @@ For the in-code source, also check: exactly the three entries, in the order Codi
 
 | ID | Scenario | Steps | Expected | Covers |
 |---|---|---|---|---|
-| TC-1.1 | Catalog content | Open `/` | Three cards: Coding Agent, Document Summarizer, Data Assistant; each shows name, one-line summary and status badge | FR-1.1 |
+| TC-1.1 | Catalog content | Open `/` | Three cards: Coding Agent, Jira Task Advisor, Task Intermediary; each shows name, one-line summary and status badge | FR-1.1 |
 | TC-1.2 | Card behaviour and layout | Tab through cards; resize 360 px → wide | One focus stop per card; whole card opens detail; 1 → 3 columns, no horizontal scroll | FR-1.2 |
 | TC-1.3 | Coding Agent detail | Open Coding Agent | Back link, name, "Not connected" badge + explanation, About, What you can do now | FR-1.3, FR-1.5 |
 | TC-1.4 | Sample details | Open each sample | "Sample" badge + explanation; future-tense description; no action controls | FR-1.3, FR-1.5 |
 | TC-1.5 | Nothing pretends | Inspect every view | No enabled control that does nothing; no Connect button in M1 | FR-1.5 |
-| TC-1.6 | Direct address | Paste `/agents/data-assistant` into a fresh tab | Detail view opens directly | FR-1.2 |
+| TC-1.6 | Direct address | Paste `/agents/task-intermediary` into a fresh tab | Detail view opens directly | FR-1.2 |
 | TC-1.7 | Back link | Scroll catalog, open an entry, select "← All agents" | Catalog at same scroll position; focus on the card just opened | FR-1.4 |
 | TC-1.8 | Browser back | Same as TC-1.7 using browser back | Same result as TC-1.7 | FR-1.4 |
 | TC-1.9 | Page titles | Visit catalog and each detail | Tab title per Design §5 | FR-1.4 |
@@ -117,6 +117,21 @@ For the in-code source, also check: exactly the three entries, in the order Codi
 | NFR-2.1 | TC-2.10 |
 | NFR-2.2 | TC-2.11 |
 
-## 7. Defects
+## 7. Later test areas (not scheduled)
+
+Listed so the whole marketplace has a test direction. Cases are written when the lesson that introduces each item arrives.
+
+| Area | What will need checking |
+|---|---|
+| Outside-system connections (Jira, WhatsApp, assignment platform) | Connect, disconnect, expired or wrong credentials, outside system down; credentials never in browser traffic or storage |
+| Permissions | Detail view states what the agent reads and changes, and matches what it actually does |
+| Agents that change things | Nothing is changed without confirmation; cancel changes nothing; failures leave no half-done state |
+| Jira task advisor | Recommendations and test cases correspond to the tasks read; empty or malformed tasks handled |
+| Task intermediary | Messages are documented faithfully; each task is assigned to the intended person; ambiguous or unassignable tasks are flagged, not guessed; a wrong assignment can be seen and corrected |
+| Privacy | Only the permitted conversations are read; participants can see and stop what is being read |
+| Activity record | Every read, documentation and assignment appears, with time and source |
+| Contract suites | Every new catalog source and adapter passes the same suites as today |
+
+## 8. Defects
 
 Record each defect with: test case ID, steps, expected vs actual, browser, and — for M2 — agent condition (running / stopped / degraded). Anything that misrepresents an entry's status is treated as blocking.

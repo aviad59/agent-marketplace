@@ -179,13 +179,31 @@ tests/
 | ADR-004 | Data-access approach | **Open — later lesson** |
 | ADR-005 | How the marketplace reaches the Coding Agent (A direct / B bridge) | Open — decided in M2, T2.1 |
 | ADR-006 | Technology stack / framework | Open — not in agreed scope |
+| ADR-007 | How agents authenticate to outside systems and where those credentials live | Open — later lesson |
+| ADR-008 | Permissions model and confirmation for agents that change things | Open — later lesson |
 
-## 11. Evolution
+## 11. Whole-marketplace headroom: agents that use outside systems
+
+Not built in M1–M2. This section records how the design leaves room for the two example agents in [PRD](PRD.md) §5.1 (a Jira task advisor and a WhatsApp-to-assignment intermediary).
+
+| Need | Where it fits |
+|---|---|
+| Reach an outside system (Jira, WhatsApp, an assignment platform) | Inside that agent's own adapter or service. The UI still sees only `AgentAdapter`. |
+| Credentials for outside systems | Held server-side or on the participant's machine, never in the browser (extends NFR-2.2). Storage is decided in the storage lesson (ADR-003). |
+| Say what an agent reads and changes | Optional `permissions` list on `AgentEntry` (e.g. "reads Jira tasks", "assigns tasks"), shown on the detail view before use. |
+| Agents that change things | Adapter marks actions as read-only or changing; changing actions require explicit participant confirmation. |
+| Record of what happened | An activity record per agent and participant (what was read, documented, assigned). Needs identity and storage, so it follows both. |
+| Long-running or event-driven agents (e.g. watching a chat) | A future `AgentAdapter` extension for background runs and notifications; not designed yet. |
+| Messages from other people | Privacy and consent are scoped before such an agent can be listed as usable. |
+
+Principle 4 still applies: each item arrives as a new implementation or a new component beside the existing ones, not a rewrite.
+
+## 12. Evolution
 
 | Stage | Adds | Interfaces touched |
 |---|---|---|
 | M1 | Catalog + detail views, in-code entries, static statuses | Introduces `AgentCatalog`, `AgentAdapter` |
 | M2 | Live Coding Agent adapter, maybe a local bridge | New implementation of `AgentAdapter` |
 | Later — storage | Persistent catalog source | New implementation of `AgentCatalog` |
-| Later — real samples | Working Document Summarizer / Data Assistant | New adapters; entries change `kind` |
+| Later — real samples | Working Jira Task Advisor / Task Intermediary | New adapters; entries change `kind` |
 | Later — authoring, search, identity | Add/edit flows, filtering, users | New interfaces, scoped when introduced |
