@@ -1,0 +1,222 @@
+/* Tokens — Design Guidelines §8. Badge and text pairs are chosen for WCAG 2.1 AA in both themes. */
+:root {
+  --bg: #f7f7f8;
+  --surface: #ffffff;
+  --text: #1b1c1f;
+  --text-muted: #4a4d55;
+  --border: #d4d6db;
+  --link: #1a4fbf;
+  --focus: #1a4fbf;
+
+  --sample-bg: #e7e8eb;
+  --sample-fg: #3a3d44;
+  --local-bg: #fdf0d2;
+  --local-fg: #6b4400;
+  --ok-bg: #dcf2e3;
+  --ok-fg: #14532d;
+  --err-bg: #fbe0df;
+  --err-fg: #8a1c17;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius: 12px;
+
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141518;
+    --surface: #1d1f23;
+    --text: #ececee;
+    --text-muted: #b4b7bf;
+    --border: #3a3d44;
+    --link: #8fb3ff;
+    --focus: #8fb3ff;
+
+    --sample-bg: #2e3036;
+    --sample-fg: #d5d7dc;
+    --local-bg: #3d2f12;
+    --local-fg: #f5cf7a;
+    --ok-bg: #173523;
+    --ok-fg: #9fe0b5;
+    --err-bg: #431b19;
+    --err-fg: #f6aaa5;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+h1,
+h2 {
+  line-height: 1.25;
+  margin: 0;
+}
+h1 {
+  font-size: 28px;
+}
+h2 {
+  font-size: 20px;
+}
+p {
+  margin: 0;
+}
+a {
+  color: var(--link);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+/* Headings get focus programmatically on page change; only show the ring for keyboard focus. */
+h1:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.intro {
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+  max-width: 60ch;
+}
+.loading {
+  margin-top: var(--space-5);
+  color: var(--text-muted);
+}
+
+/* Catalog grid — 1 column narrow, up to 3 wide */
+.grid {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-5) 0 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+}
+.card:hover {
+  border-color: var(--text-muted);
+}
+.card:hover .card-name {
+  text-decoration: underline;
+}
+.card-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.card-summary {
+  color: var(--text-muted);
+  flex: 1;
+}
+
+/* Status badge — label + marker shape; colour is extra (Design §3). Not interactive. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.badge-sample,
+.badge-connecting {
+  background: var(--sample-bg);
+  color: var(--sample-fg);
+}
+.badge-not_connected {
+  background: var(--local-bg);
+  color: var(--local-fg);
+}
+.badge-connected {
+  background: var(--ok-bg);
+  color: var(--ok-fg);
+}
+.badge-error {
+  background: var(--err-bg);
+  color: var(--err-fg);
+}
+
+/* Detail */
+.back {
+  display: inline-block;
+  margin-bottom: var(--space-5);
+}
+.detail {
+  max-width: 70ch;
+}
+.detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.status-explain {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+}
+.detail section {
+  margin-top: var(--space-6);
+}
+.detail section p {
+  margin-top: var(--space-2);
+}
+.detail ul {
+  margin: var(--space-2) 0 0;
+  padding-inline-start: var(--space-5);
+}
+
+/* Backend unreachable */
+.load-error {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--err-bg);
+  color: var(--err-fg);
+}
+.load-error button {
+  margin-top: var(--space-3);
+  font: inherit;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 8px;
+  border: 1px solid currentColor;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
